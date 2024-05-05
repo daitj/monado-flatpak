@@ -4,9 +4,13 @@
 
 This has only been tested on my atomic Fedora 40 desktop! I have not attempted to use this with either Nvidia or Intel graphics cards due to not owning either. For any Nvidia or Intel users, YMMV.
 
-This is also very much tailored to my system. For your own system, some liberties may need to be taken.
+This is also very much tailored to my system. For your own system, some liberties may need to be taken. This is very much a proof of concept!
 
-# Install
+The VR hardware this has been tested with is a first generation HTC Vive with Valve Index controllers. No other VR hardware has been tested.
+
+Given some of Flatpak's limitations, this does punch a hole into the sandbox by granting access to the Monado flatpak's `XDG_RUNTIME_DIR`, which *could* be a security risk. The Monado flatpak has also been granted full access to the host and Steam flatpak's `$HOME/.steam` directory, which could also be a security risk.
+
+# Dependencies
 
 The following Flatpak dependencies must be installed prior to build either of the Flatpaks:
 
@@ -24,6 +28,24 @@ Included are three flatpaks- `org.monado.Monado`, `org.freedesktop.Platform.Vulk
 `org.freedesktop.Platform.VulkanLayer.monado` is layered into most Flatpaks, allowing for Monado to be used quickly, provided that its wrapper script has been run. This is *not* optional.
 
 `com.valvesoftware.Steam.Utility.monado` provides the SteamVR driver for Monado-supported devices, as well as a wrapper script to use Monado with Proton games. This is only needed for Steam games!
+
+# Setup
+
+Clone and enter this directory like so:
+
+```
+git clone --recurse-submodules https://github.com/CharlieQLe/monado-flatpak.git
+cd monado-flatpak
+```
+
+If the flatpak dependencies have not been satisfied, install them now like so:
+
+```
+flatpak install org.flatpak.Builder \
+    org.freedesktop.Sdk//23.08 \
+    org.freedesktop.Platform//23.08 \
+    com.valvesoftware.Steam
+```
 
 ## org.monado.Monado
 
