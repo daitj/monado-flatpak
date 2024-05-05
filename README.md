@@ -120,10 +120,6 @@ Some applications may append the `bin` directories under `/usr/lib/extensions/vu
 
 `monado-wrapper path_to_binary arg1 arg2 ...`
 
-For Steam games that work with Monado, simply add the following to the launch options of the game:
-
-`monado-wrapper %command%`
-
 ## com.valvesoftware.Steam.Utility.monado
 
 ### Install
@@ -139,6 +135,8 @@ Due to being a Steam extension, this extension's `bin` directory is located on t
 `monado-wrapper %command%`
 
 [OpenComposite](https://gitlab.com/znixian/OpenOVR) may be necessary for some games to run. Additionally, Proton currently has an [issue](https://github.com/ValveSoftware/Proton/issues/7382) where OpenXR games cannot use custom OpenXR runtimes, which unfortunately includes Monado.
+
+The wrapper script *must* be used with Steam games, due to the Pressure Vessel container.
 
 # Extra
 
