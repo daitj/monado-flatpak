@@ -83,7 +83,7 @@ Build and install this like so:
 
 This is not sufficient however, and additional work must be done in order to interface with Monado.
 
-### Override
+### monado_comp_ipc
 
 In order for any clients to access the `monado_comp_ipc` socket, they must have the ability to see the location of the socket on the filesystem. Because of the Flatpak sandbox, access must be granted to Monado's `XDG_RUNTIME_DIR`. This can be done for individual Flatpaks like so:
 
@@ -91,15 +91,13 @@ In order for any clients to access the `monado_comp_ipc` socket, they must have 
 
 where `<flatpak-id>` is the qualified name of the app (i.e. Steam is `com.valvesoftware.Steam`). While this can be applied globally, it is not recommended for security reasons.
 
-### Symlink
-
 Additionally, the socket must be symlinked to the client flatpak's `XDG_RUNTIME_DIR` location. This can be done like so from inside of the flatpak's shell:
 
 `ln -sf $XDG_RUNTIME_DIR/.flatpak/org.monado.Monado/xdg-run/monado_comp_ipc $XDG_RUNTIME_DIR/`
 
 This *might* only be required for first time usage. 
 
-### OpenXR Runtime
+### XR_RUNTIME_JSON
 
 `XR_RUNTIME_JSON` must also be exported and set to `/usr/lib/extensions/vulkan/monado/share/openxr/1/openxr_monado.json` prior to running the OpenXR client.
 
@@ -110,11 +108,15 @@ flatpak run --command=mkdir <flatpak-id> -p ~/.config/openxr/1/
 flatpak run --command=cp <flatpak-id> /usr/lib/extensions/vulkan/monado/share/openxr/1/openxr_monado.json ~/.config/openxr/1/active_runtime.json
 ```
 
+Alternatively, an environment variable override could also be used to set `XR_RUNTIME_JSON` like so, where `<flatpak-id>` is the qualified flatpak name:
+
+`flatpak --user override --env=XR_RUNTIME_JSON=/usr/lib/extensions/vulkan/monado/share/openxr/1/openxr_monado.json <flatpak-id>`
+
 ### Wrapper Script
 
-A wrapper script `monado-wrapper` is included to handle both the symlinking and `XR_RUNTIME_JSON`, located at `/usr/lib/extensions/vulkan/monado/bin/monado-wrapper`. Simply append the program and all of its arguments to the end of the script to run it under Monado like so:
+A wrapper script `monado-wrapper` is included to handle both `monado_comp_ipc` and `XR_RUNTIME_JSON`, located at `/usr/lib/extensions/vulkan/monado/bin/monado-wrapper`. Simply append the program and all of its arguments to the end of the script to run it under Monado like so:
 
-`/usr/lib/extensions/vulkan/monado/bin/monado-wrapper some_path_to_binary arg1 arg2 ...`
+`/usr/lib/extensions/vulkan/monado/bin/monado-wrapper path_to_binary arg1 arg2 ...`
 
 Some applications may append the `bin` directories under `/usr/lib/extensions/vulkan` to `PATH`. For those applications, it is sufficient to run `monado-wrapper` like so:
 
