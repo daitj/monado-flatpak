@@ -2,7 +2,9 @@
 
 # Disclaimer
 
-This has only been tested on my atomic Fedora 40 desktop! I have not attempted to use this with both Nvidia or Intel graphics cards! For any Nvidia or Intel users, YMMV.
+This has only been tested on my atomic Fedora 40 desktop! I have not attempted to use this with either Nvidia or Intel graphics cards due to not owning either. For any Nvidia or Intel users, YMMV.
+
+This is also very much tailored to my system. For your own system, some liberties may need to be taken.
 
 # Install
 
@@ -11,17 +13,29 @@ The following Flatpak dependencies must be installed prior to build either of th
 - org.flatpak.Builder
 - org.freedesktop.Sdk//23.08
 - org.freedesktop.Platform//23.08
-- com.valvesoftware.Steam
+- com.valvesoftware.Steam (only for `com.valvesoftware.Steam.Utility.monado`)
 
 # Usage
 
 Included are three flatpaks- `org.monado.Monado`, `org.freedesktop.Platform.VulkanLayer.monado`, and `com.valvesoftware.Steam.Utility.monado`.
 
+`org.monado.Monado` handles the main Monado service, running straight from the terminal. This is *not* optional.
+
+`org.freedesktop.Platform.VulkanLayer.monado` is layered into most Flatpaks, allowing for Monado to be used quickly, provided that its wrapper script has been run. This is *not* optional.
+
+`com.valvesoftware.Steam.Utility.monado` provides the SteamVR driver for Monado-supported devices, as well as a wrapper script to use Monado with Proton games. This is only needed for Steam games!
+
 ## org.monado.Monado
+
+### Install
+
+Build and install this like so:
+
+`flatpak run org.flatpak.Builder --user --install --force-clean monado-build-dir org.monado.Monado.json`
 
 ### Usage
 
-This is the main Monado service. Running the Flatpak will automatically run `monado-service`. It is recommended to run this via a terminal for now like so:
+Running the Flatpak will automatically run `monado-service`. It is recommended to run this via a terminal for now like so:
 
 `flatpak run org.monado.Monado`
 
@@ -37,15 +51,7 @@ flatpak run --command=monado-ctl org.monado.Monado <options>
 flatpak run --command=monado-gui org.monado.Monado <options>
 ```
 
-### Install
-
-Build and install this like so:
-
-`flatpak run org.flatpak.Builder --user --install --force-clean monado-build-dir org.monado.Monado.json`
-
 ## org.freedesktop.Platform.VulkanLayer.monado
-
-This is the layer that most Flatpaks will have access to in order to work with the Monado service.
 
 ### Install
 
@@ -61,7 +67,7 @@ In order for any clients to access the `monado_comp_ipc` socket, they must have 
 
 `flatpak --user override --filesystem=xdg-run/.flatpak/org.monado.Monado <flatpak-id>`
 
-where `<flatpak-id>` is the qualified name of the app (i.e. Steam is `com.valvesoftware.Steam`). While this can be applied globally by not specifying an application, that is not recommended for security reasons.
+where `<flatpak-id>` is the qualified name of the app (i.e. Steam is `com.valvesoftware.Steam`). While this can be applied globally, it is not recommended for security reasons.
 
 ### Symlink
 
@@ -69,9 +75,18 @@ Additionally, the socket must be symlinked to the client flatpak's `XDG_RUNTIME_
 
 `ln -sf $XDG_RUNTIME_DIR/.flatpak/org.monado.Monado/xdg-run/monado_comp_ipc $XDG_RUNTIME_DIR/`
 
+This *might* only be required for first time usage. 
+
 ### OpenXR Runtime
 
 `XR_RUNTIME_JSON` must also be exported and set to `/usr/lib/extensions/vulkan/monado/share/openxr/1/openxr_monado.json` prior to running the OpenXR client.
+
+Alternatively, if Monado is the only OpenXR runtime, then setting `XR_RUNTIME_JSON` can be avoided by copying `openxr_monado.json` to the `active_runtime.json` located in the Flatpak's configuration directory. This can be done like so, where `<flatpak-id>` is the qualified flatpak name:
+
+```
+flatpak run --command=mkdir <flatpak-id> -p ~/.config/openxr/1/
+flatpak run --command=cp <flatpak-id> /usr/lib/extensions/vulkan/monado/share/openxr/1/openxr_monado.json ~/.config/openxr/1/active_runtime.json
+```
 
 ### Wrapper Script
 
@@ -89,13 +104,19 @@ For Steam games that work with Monado, simply add the following to the launch op
 
 ## com.valvesoftware.Steam.Utility.monado
 
-This is an optional Steam Flatpak extension that provides the Monado SteamVR driver, as well as its own `monado-wrapper` that works under Proton.
-
 ### Install
 
 Build and install this like so:
 
 `flatpak run org.flatpak.Builder --user --install --force-clean steamvr-build-dir com.valvesoftware.Steam.Utility.monado.json`
+
+### Usage
+
+Due to being a Steam extension, this extension's `bin` directory is located on the `PATH`, which means the wrapper can be ran as `monado-wrapper`. For every game Monado should be used in, set the launch options like so, while keeping any desired launch options:
+
+`monado-wrapper %command%`
+
+[OpenComposite](https://gitlab.com/znixian/OpenOVR) may be necessary for some games to run. Additionally, Proton currently has an [issue](https://github.com/ValveSoftware/Proton/issues/7382) where OpenXR games cannot use custom OpenXR runtimes, which unfortunately includes Monado.
 
 # Extra
 
@@ -107,10 +128,9 @@ In order to use the proprietary SteamVR lighthouse driver from the Steam flatpak
 
 # Limitations
 
-- The main Monado service must be run from the terminal.
+- The Monado Flatpak currently lacks the full featureset of Monado. This can be remedied by adding the appropriate dependencies to the Monado module located at `modules/monado.json` and setting any CMake compiler options. Some may not work however, so YMMV
 
-- The Monado Flatpak currently lacks the full featureset of Monado. This can be remedied by adding the appropriate dependencies to the Monado module located at `modules/monado.json`. Some may not work however, so YMMV.
+- Any systemd functionality does not work due to the inability to export systemd services and sockets from Flatpaks
 
-- Additionally, the systemd socket functionality to automatically start Monado when an OpenXR client is unavailable with the Flatpak.
-
-- The host's OpenXR applications cannot run with the Monado flatpak. Either use or package the applications as Flatpaks or build Monado from source on the host.
+- The host's OpenXR applications cannot run with the Monado flatpak. Either use or package the applications as Flatpaks or build Monado from source on the host
+    - AppImages *may* work by extracting their contents and running the extracted binary within a Flatpak, provided that `XR_RUNTIME_JSON` is set properly
