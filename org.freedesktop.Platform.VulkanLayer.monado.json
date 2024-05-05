@@ -1,0 +1,51 @@
+{
+    "id": "org.freedesktop.Platform.VulkanLayer.monado",
+    "branch": "23.08",
+    "sdk": "org.freedesktop.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "23.08",
+    "build-extension": true,
+    "appstream-compose": false,
+    "separate-locales": false,
+    "build-options": {
+        "prefix": "/usr/lib/extensions/vulkan/monado",
+        "prepend-path": "/usr/lib/extensions/vulkan/monado/bin",
+        "prepend-pkg-config-path": "/usr/lib/extensions/vulkan/monado/lib/pkgconfig",
+        "env": {
+            "C_INCLUDE_PATH": "/usr/lib/extensions/vulkan/monado/include",
+            "CPLUS_INCLUDE_PATH": "/usr/lib/extensions/vulkan/monado/include"
+        },
+        "strip": true
+    },
+    "cleanup": [
+        "/include",
+        "/lib/*.a",
+        "/lib/*.la",
+        "/share/doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "/bin/monado-cli",
+        "/bin/monado-ctl",
+        "/bin/monado-gui",
+        "/bin/monado-service",
+        "/lib/libusb*",
+        "/share/steamvr-monado"
+    ],
+    "modules": [
+        "modules/monado.json",
+        {
+            "name": "post-install",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm755 monado-wrapper.sh ${FLATPAK_DEST}/bin/monado-wrapper"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "./monado-wrapper.sh",
+                    "dest-filename": "monado-wrapper.sh"
+                }
+            ]
+        }
+    ]
+}

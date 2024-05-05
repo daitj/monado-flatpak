@@ -1,0 +1,50 @@
+{
+    "id": "com.valvesoftware.Steam.Utility.monado",
+    "branch": "stable",
+    "sdk": "org.freedesktop.Sdk//23.08",
+    "runtime": "com.valvesoftware.Steam",
+    "runtime-version": "stable",
+    "build-extension": true,
+    "appstream-compose": false,
+    "separate-locales": false,
+    "build-options": {
+        "prefix": "/app/utils/monado",
+        "prepend-path": "/app/utils/monado/bin",
+        "prepend-pkg-config-path": "/app/utils/monado/lib/pkgconfig",
+        "env": {
+            "C_INCLUDE_PATH": "/app/utils/monado/include",
+            "CPLUS_INCLUDE_PATH": "/app/utils/monado/include"
+        },
+        "strip": true
+    },
+    "cleanup": [
+        "/include",
+        "/lib",
+        "/share/doc",
+        "/share/man",
+        "/share/licenses",
+        "/share/openxr",
+        "/share/pkgconfig",
+        "/bin/monado-cli",
+        "/bin/monado-ctl",
+        "/bin/monado-gui",
+        "/bin/monado-service"
+    ],
+    "modules": [
+        "modules/monado.json",
+        {
+            "name": "post-install",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm755 steam-monado-wrapper.sh ${FLATPAK_DEST}/bin/monado-wrapper"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "./steam-monado-wrapper.sh",
+                    "dest-filename": "steam-monado-wrapper.sh"
+                }
+            ]
+        }
+    ]
+}

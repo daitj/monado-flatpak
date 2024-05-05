@@ -1,0 +1,21 @@
+{
+    "name": "monado",
+    "buildsystem": "cmake",
+    "build-options": {
+        "config-opts": [
+            "-DXRT_HAVE_STEAM=YES",
+            "-DXRT_HAVE_SYSTEMD=NO"
+        ]
+    },
+    "modules": [
+        "../shared-modules/libusb/libusb.json",
+        "eigen3.json"
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://gitlab.freedesktop.org/monado/monado.git",
+            "commit": "8062defa3cf78b4e3745c18d0243bbd5dd5c9985"
+        }
+    ]
+}
