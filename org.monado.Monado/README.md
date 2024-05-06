@@ -52,8 +52,7 @@ flatpak --user override --env=XRT_COMPOSITOR_SCALE_PERCENTAGE=200 org.monado.Mon
     - If Steam is installed on the host, `org.monado.Monado` must be granted access to the Steam directories. This can be done like so:
 
         ```
-        flatpak --user override --filesystem=xdg-data/Steam:ro org.monado.Monado
-        flatpak --user override --filesystem=~/.steam:ro org.monado.Monado
+        flatpak --user override --filesystem=xdg-data/Steam:ro --filesystem=~/.steam:ro org.monado.Monado
         ```
 
     - If Steam is a Flatpak, a symlink from `$HOME/.var/app/com.valvesoftware/.steam` to Monado`'s home directory is necessary. This can be done like so:
