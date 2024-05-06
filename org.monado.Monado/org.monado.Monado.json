@@ -27,11 +27,12 @@
         "--socket=fallback-x11",
         "--device=all",
         "--filesystem=xdg-run/monado_comp_ipc",
-        "--filesystem=~/.var/app/com.valvesoftware.Steam",
-        "--filesystem=~/.steam"
+        "--persist=.",
+        "--env=XRT_COMPOSITOR_COMPUTE=1",
+        "--env=XRT_COMPOSITOR_DEFAULT_FRAMERATE=90"
     ],
     "modules": [
-        "shared-modules/SDL2/SDL2-with-libdecor.json",
-        "modules/monado.json"
+        "../shared-modules/SDL2/SDL2-with-libdecor.json",
+        "../modules/monado.json"
     ]
 }

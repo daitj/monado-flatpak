@@ -32,7 +32,7 @@
         "/share/steamvr-monado"
     ],
     "modules": [
-        "modules/monado.json",
+        "../modules/monado.json",
         {
             "name": "post-install",
             "buildsystem": "simple",
@@ -42,8 +42,7 @@
             "sources": [
                 {
                     "type": "file",
-                    "path": "./monado-wrapper.sh",
-                    "dest-filename": "monado-wrapper.sh"
+                    "path": "./monado-wrapper.sh"
                 }
             ]
         }

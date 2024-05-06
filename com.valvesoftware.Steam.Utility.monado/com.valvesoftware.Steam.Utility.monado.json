@@ -31,18 +31,17 @@
         "/bin/monado-service"
     ],
     "modules": [
-        "modules/monado.json",
+        "../modules/monado.json",
         {
             "name": "post-install",
             "buildsystem": "simple",
             "build-commands": [
-                "install -Dm755 steam-monado-wrapper.sh ${FLATPAK_DEST}/bin/monado-wrapper"
+                "install -Dm755 monado-wrapper.sh ${FLATPAK_DEST}/bin/monado-wrapper"
             ],
             "sources": [
                 {
                     "type": "file",
-                    "path": "./steam-monado-wrapper.sh",
-                    "dest-filename": "steam-monado-wrapper.sh"
+                    "path": "./monado-wrapper.sh"
                 }
             ]
         }
