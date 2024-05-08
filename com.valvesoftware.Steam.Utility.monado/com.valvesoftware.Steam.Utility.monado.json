@@ -19,11 +19,10 @@
     },
     "cleanup": [
         "/include",
-        "/lib",
+        "/lib/libusb*",
         "/share/doc",
         "/share/man",
         "/share/licenses",
-        "/share/openxr",
         "/share/pkgconfig",
         "/bin/monado-cli",
         "/bin/monado-ctl",

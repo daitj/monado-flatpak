@@ -8,6 +8,8 @@ flatpak run org.flatpak.Builder --user --install --force-clean monado-ext-build-
 
 However, additional work needs to be done to allow OpenXR applications to connect to the Monado runtime.
 
+**Note: this is not used for Steam games. Refer to `com.valvesoftware.Steam.Utility.monado` [here](../com.valvesoftware.Steam.Utility.monado/README.md) instead.**
+
 ## Socket
 
 In order for any clients to access the `monado_comp_ipc` socket, they must have the ability to see the location of the socket on the filesystem. Because of the Flatpak sandbox, access must be granted to Monado's `XDG_RUNTIME_DIR`. Additionally, the socket must be symlinked to `$XDG_RUNTIME_DIR/monado_comp_ipc`. This can be done for individual Flatpaks like so:
