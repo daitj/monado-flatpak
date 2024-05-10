@@ -1,0 +1,12 @@
+{
+    "name": "openxr",
+    "buildsystem": "cmake",
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://github.com/KhronosGroup/OpenXR-SDK.git",
+            "tag": "release-1.1.36",
+            "commit": "8899a91c17ce9618f565f42408b47db1d6e9ccc7"
+        }
+    ]
+}

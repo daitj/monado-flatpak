@@ -6,7 +6,7 @@ Included with `com.valvesoftware.Steam.Utility.monado` is the Monado SteamVR plu
 flatpak run org.flatpak.Builder --user --install --force-clean steamvr-build-dir com.valvesoftware.Steam.Utility.monado/com.valvesoftware.Steam.Utility.monado.json
 ```
 
-**Note: `org.freedesktop.Platform.VulkanLayer.monado` is *not* necessary for this to work**
+**Note: `org.freedesktop.Platform.VulkanLayer.monado` is *not* necessary for this to work.**
 
 Additionally, more work is necessary to make this work. Like with `org.freedesktop.Platform.VulkanLayer.monado`, permission to access `monado_comp_ipc` is required, as well as symlinking the socket. This can be done like so:
 

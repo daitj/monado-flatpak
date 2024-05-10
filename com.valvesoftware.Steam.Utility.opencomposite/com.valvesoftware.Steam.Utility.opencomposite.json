@@ -1,0 +1,75 @@
+{
+    "id": "com.valvesoftware.Steam.Utility.opencomposite",
+    "branch": "stable",
+    "sdk": "org.freedesktop.Sdk//23.08",
+    "runtime": "com.valvesoftware.Steam",
+    "runtime-version": "stable",
+    "build-extension": true,
+    "appstream-compose": false,
+    "separate-locales": false,
+    "build-options": {
+        "prefix": "/app/utils/opencomposite",
+        "strip": true
+    },
+    "cleanup": [
+        "/include",
+        "/lib",
+        "/share/doc",
+        "/share/man"
+    ],
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Compat.i386",
+        "org.freedesktop.Sdk.Extension.toolchain-i386"
+    ],
+    "modules": [
+        {
+            "name": "opencomposite",
+            "buildsystem": "simple",
+            "builddir": true,
+            "build-commands": [
+                "mkdir build && cd build && cmake .. -G Ninja && ninja",
+                "mkdir -p ${FLATPAK_DEST}/share/openvr",
+                "mv build/bin ${FLATPAK_DEST}/share/openvr/bin"
+            ],
+            "sources": [
+                "./opencomposite.json"
+            ]
+        },
+        {
+            "name": "opencomposite-32",
+            "buildsystem": "simple",
+            "builddir": true,
+            "build-commands": [
+                "mkdir build && cd build && cmake .. -G Ninja -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_ASM_FLAGS=-m32 && ninja",
+                "mkdir -p ${FLATPAK_DEST}/share/openvr",
+                "mv build/bin/vrclient.so ${FLATPAK_DEST}/share/openvr/bin/"
+            ],
+            "build-options": {
+                "prepend-pkg-config-path": "/app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig",
+                "ldflags": "-L/app/lib32",
+                "prepend-path": "/usr/lib/sdk/toolchain-i386/bin",
+                "env": {
+                    "CC": "i686-unknown-linux-gnu-gcc",
+                    "CXX": "i686-unknown-linux-gnu-g++"
+                }
+            },
+            "sources": [
+                "./opencomposite.json"
+            ]
+        },
+        {
+            "name": "post-install",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm755 opencomposite-wrapper.sh ${FLATPAK_DEST}/bin/opencomposite-wrapper"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "path": "./opencomposite-wrapper.sh",
+                    "dest-filename": "opencomposite-wrapper.sh"
+                }
+            ]
+        }
+    ]
+}
