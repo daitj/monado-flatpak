@@ -53,3 +53,5 @@ flatpak --user override --env=XRT_COMPOSITOR_SCALE_PERCENTAGE=200 org.monado.Mon
     flatpak --user override --filesystem=~/.var/app/com.valvesoftware.Steam:ro org.monado.Monado
     flatpak run --command=ln org.monado.Monado -s $HOME/.var/app/com.valvesoftware.Steam/.steam $HOME/
     ```
+
+- Because `CAP_SYS_NICE` cannot be set on `monado-service`, performance may suffer in performance-intensive situations compared to a non-Flatpak version of Monado
