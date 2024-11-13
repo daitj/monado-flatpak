@@ -1,0 +1,25 @@
+{
+    "name": "openhmd",
+    "buildsystem": "cmake",
+    "builddir": true,
+    "config-opts": [
+        "-DHIDAPI_INCLUDE_DIR=/app/include/hidapi",
+        "-DHIDAPI_LIBRARY=/app/lib/libhidapi-hidraw.so.0.0.0"
+    ],
+    "cleanup": [
+        "/lib/*.la",
+        "/lib/pkgconfig",
+        "/include"
+    ],
+    "modules":[
+        "../modules/hidapi.json"
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://github.com/OpenHMD/OpenHMD",
+            "branch": "master",
+            "commit": "bb8bb0a8924351cb4e3e4dc44344268ab29a4581"
+        }
+    ]
+}

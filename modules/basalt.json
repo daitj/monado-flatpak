@@ -1,0 +1,23 @@
+{
+    "name": "basalt",
+    "buildsystem": "cmake",
+    "builddir": true,
+    "config-opts": [
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+        "-DBASALT_BUILD_SHARED_LIBRARY_ONLY=off",
+        "-DCMAKE_CXX_STANDARD=17"
+    ],
+    "modules":[
+        "../modules/libtbb.json",
+        "../modules/opencv.json",
+        "../modules/fmt.json",
+        "../modules/boost.json"
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://gitlab.freedesktop.org/mateosss/basalt.git",
+            "commit": "ab5a3c72143a8b215cdca3115cb77d4d5413a502"
+        }
+    ]
+}

@@ -9,6 +9,8 @@
     },
     "modules": [
         "../shared-modules/libusb/libusb.json",
+        "../modules/openhmd.json",
+        "../modules/basalt.json",
         "eigen3.json"
     ],
     "sources": [
