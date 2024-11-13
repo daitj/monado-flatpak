@@ -5,8 +5,8 @@
         {
             "type": "git",
             "url": "https://github.com/KhronosGroup/OpenXR-SDK.git",
-            "tag": "release-1.1.36",
-            "commit": "8899a91c17ce9618f565f42408b47db1d6e9ccc7"
+            "tag": "release-1.1.42",
+            "commit": "b7ada0bdecd9830f27c2221dad6f0bb933c64f15"
         }
     ]
 }

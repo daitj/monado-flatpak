@@ -12,7 +12,7 @@
             "type": "git",
             "url": "https://gitlab.com/libeigen/eigen.git",
             "branch": "3.4",
-            "commit": "9df21dc8b4b576a7aa5c0094daa8d7e8b8be60f0"
+            "commit": "3e7bcf54f7b00164ad5d2b4151fa4cf7300cea0e"
         }
     ]
 }

@@ -15,7 +15,7 @@
         {
             "type": "git",
             "url": "https://gitlab.freedesktop.org/monado/monado.git",
-            "commit": "8062defa3cf78b4e3745c18d0243bbd5dd5c9985"
+            "commit": "ee2ddead2e06c0ecf8786dd38eebd3a159984678"
         }
     ]
 }
