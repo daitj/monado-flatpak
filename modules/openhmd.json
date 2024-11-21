@@ -7,9 +7,7 @@
         "-DHIDAPI_LIBRARY=/app/lib/libhidapi-hidraw.so.0.0.0"
     ],
     "cleanup": [
-        "/lib/*.la",
-        "/lib/pkgconfig",
-        "/include"
+        "*"
     ],
     "modules":[
         "../modules/hidapi.json"

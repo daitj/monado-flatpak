@@ -1,9 +1,7 @@
 {
     "name": "hidapi",
     "cleanup": [
-        "/lib/*.la",
-        "/lib/pkgconfig",
-        "/include"
+        "*"
     ],
     "sources": [
         {
