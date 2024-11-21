@@ -7,6 +7,11 @@
     "command": "monado-service",
     "appstream-compose": false,
     "separate-locales": false,
+    "build-options": {
+        "env": {
+            "BOOST_PREFIX": "/app"
+        }
+    },
     "cleanup": [
         "/include",
         "/lib/*.a",

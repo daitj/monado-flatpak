@@ -13,7 +13,8 @@
         "prepend-pkg-config-path": "/usr/lib/extensions/vulkan/monado/lib/pkgconfig",
         "env": {
             "C_INCLUDE_PATH": "/usr/lib/extensions/vulkan/monado/include",
-            "CPLUS_INCLUDE_PATH": "/usr/lib/extensions/vulkan/monado/include"
+            "CPLUS_INCLUDE_PATH": "/usr/lib/extensions/vulkan/monado/include",
+            "BOOST_PREFIX": "/usr/lib/extensions/vulkan/monado"
         },
         "strip": true
     },

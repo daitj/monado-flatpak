@@ -3,7 +3,7 @@
     "buildsystem": "simple",
     "builddir": true,
     "build-commands": [
-        "./bootstrap.sh --prefix=/app --with-libraries=date_time,filesystem,regex,program_options,serialization",
+        "./bootstrap.sh --prefix=${BOOST_PREFIX} --with-libraries=date_time,filesystem,regex,program_options,serialization",
         "./b2 --build-type=minimal link=shared -j $FLATPAK_BUILDER_N_JOBS",
         "./b2 --build-type=minimal link=shared install"
     ],

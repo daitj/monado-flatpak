@@ -10,7 +10,7 @@
     "modules": [
         "../shared-modules/libusb/libusb.json",
         "../modules/basalt.json",
-        "eigen3.json"
+        "../modules/eigen3.json"
     ],
     "sources": [
         {

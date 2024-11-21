@@ -13,20 +13,20 @@ For Steam users, this is **not** intended to be used with anything other than th
 The following Flatpak dependencies must be installed prior to building any of the Flatpaks:
 
 - org.flatpak.Builder
-- org.freedesktop.Platform//23.08
-- org.freedesktop.Sdk//23.08
-- org.freedesktop.Sdk.Compat.i386//23.08
-- org.freedesktop.Sdk.Extension.toolchain-i386//23.08
+- org.freedesktop.Platform//24.08
+- org.freedesktop.Sdk//24.08
+- org.freedesktop.Sdk.Compat.i386//24.08
+- org.freedesktop.Sdk.Extension.toolchain-i386//24.08
 - com.valvesoftware.Steam
 
 They can be installed like so:
 
 ```
 flatpak install org.flatpak.Builder \
-    org.freedesktop.Platform//23.08 \
-    org.freedesktop.Sdk//23.08 \
-    org.freedesktop.Sdk.Compat.i386//23.08 \
-    org.freedesktop.Sdk.Extension.toolchain-i386//23.08 \ 
+    org.freedesktop.Platform//24.08 \
+    org.freedesktop.Sdk//24.08 \
+    org.freedesktop.Sdk.Compat.i386//24.08 \
+    org.freedesktop.Sdk.Extension.toolchain-i386//24.08 \ 
     com.valvesoftware.Steam
 ```
 
