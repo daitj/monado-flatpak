@@ -3,14 +3,16 @@
     "buildsystem": "cmake",
     "build-options": {
         "config-opts": [
+            "-DCMAKE_BUILD_TYPE=Debug",
+            "-DXRT_BUILD_DRIVER_EUROC=YES",
             "-DXRT_HAVE_STEAM=YES",
             "-DXRT_HAVE_SYSTEMD=NO"
         ]
     },
     "modules": [
         "../shared-modules/libusb/libusb.json",
-        "../modules/basalt.json",
-        "../modules/eigen3.json"
+        "../modules/eigen3.json",
+        "../modules/basalt.json"
     ],
     "sources": [
         {
